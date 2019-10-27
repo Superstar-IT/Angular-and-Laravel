@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="row">
+      <div class="col-xs-12">
+
+          <h1>{{title}}</h1>
+
+          <!-- Table to output data -->
+          <table class="table table-striped">
+              <thead>
+                  <tr>
+                      <th>ID</th>
+                      <th>SKU</th>
+                      <th>PRODUCT</th>
+                      <th>PRICE</th>
+                      <th>QUANTITY</th>
+                      <th>OPTIONS</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let product of products">
+                      <td>{{ product.id }}</td>
+                      <td>{{ product.sku }}</td>
+                      <td>{{ product.name }}</td>
+                      <td>{{ product.price }}</td>
+                      <td>{{ product.quantity }}</td>
+                      <td>
+                          <button (click)="deleteProduct(product.id)" class="btn btn-danger">Delete</button>
+                          <button (click)="showProduct(product.id)" class="btn btn-primary">Edit</button>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+
+          <hr />
+
+          <!-- Form to add data -->
+          <!-- <form> -->
+          <form [formGroup]="productForm" (ngSubmit)="storeProduct(productForm)">
+              <div class="form-group">
+                  <label for="sku">SKU</label>
+                  <input type="text" class="form-control" name="sku" formControlName="sku">
+              </div>
+              <div class="form-group">
+                  <label for="name">Product Name</label>
+                  <input type="text" class="form-control" name="name" formControlName="name">
+              </div>
+              <div class="form-group">
+                  <label for="price">Price</label>
+                  <input type="number" class="form-control" name="price" min="0" max="99999" step=".01" formControlName="price">
+              </div>
+              <div class="form-group">
+                  <label for="quantity">Quantity</label>
+                  <input type="number" class="form-control" name="quantity" min="1" max="10" formControlName="quantity">
+              </div>
+
+              <!-- Output the data on input -->
+              <pre>{{productForm.value | json}}</pre>
+
+              <button type="submit" class="btn btn-primary" *ngIf="updateBtn === false">Add</button>
+              <button type="button" (click)="putProduct(product.id)" class="btn btn-primary" *ngIf="updateBtn === true">Update</button>
+
+          </form>
+
+      </div>    
+  </div>
+</div>
